@@ -1,0 +1,26 @@
+@* Modal de confirmación antes de eliminar un cliente (Persona 4) *@
+
+<div class="modal fade" id="modalEliminarCliente" tabindex="-1" aria-labelledby="modalEliminarClienteLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalEliminarClienteLabel">Eliminar cliente</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body">
+                <div id="mensajeEliminarCliente" class="alert d-none" role="alert"></div>
+                <p>
+                    ¿Está seguro que desea eliminar al cliente
+                    <strong id="nombreClienteEliminar"></strong>?
+                </p>
+                <p class="text-danger mb-0">
+                    También se eliminarán todos sus números de teléfono. Esta acción no se puede deshacer.
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" id="btnConfirmarEliminar" class="btn btn-danger">Eliminar</button>
+            </div>
+        </div>
+    </div>
+</div>
