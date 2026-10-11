@@ -1,0 +1,113 @@
+@using GestorClientes.Application.Dtos
+@model ClienteDto
+
+@{
+    ViewData["Title"] = "Modificar Cliente";
+}
+
+<h2>Modificar Cliente</h2>
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+<form asp-action="Modificar" method="post">
+    <input type="hidden" asp-for="Id" />
+
+    <div class="mb-3">
+        <label asp-for="Nombre" class="form-label"></label>
+        <input asp-for="Nombre" class="form-control" />
+        <span asp-validation-for="Nombre" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Apellido1" class="form-label"></label>
+        <input asp-for="Apellido1" class="form-control" />
+        <span asp-validation-for="Apellido1" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Apellido2" class="form-label"></label>
+        <input asp-for="Apellido2" class="form-control" />
+        <span asp-validation-for="Apellido2" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Correo" class="form-label"></label>
+        <input asp-for="Correo" class="form-control" />
+        <span asp-validation-for="Correo" class="text-danger"></span>
+    </div>
+
+    <h5>Teléfonos</h5>
+    <div id="telefonos-container">
+        @for (int i = 0; i < Model.Telefonos.Count; i++)
+        {
+            <div class="row mb-2 telefono-row">
+                <div class="col-8">
+                    <input name="Telefonos[@i].Numero"
+                           value="@Model.Telefonos[i].Numero"
+                           class="form-control"
+                           placeholder="Número de teléfono" />
+                </div>
+                <div class="col-4">
+                    <button type="button" class="btn btn-outline-danger btn-eliminar-telefono">
+                        Quitar
+                    </button>
+                </div>
+            </div>
+        }
+    </div>
+
+    <button type="button" id="btn-agregar-telefono" class="btn btn-outline-secondary mb-3">
+        + Agregar teléfono
+    </button>
+
+    <div>
+        <button type="submit" class="btn btn-primary">Guardar cambios</button>
+        <a asp-action="Detalle" asp-route-id="@Model.Id" class="btn btn-link">Cancelar</a>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        // Nota: al guardar, el repositorio reemplaza TODOS los teléfonos del cliente
+        // por los que lleguen en esta lista (ver ClienteRepository.UpdateClienteAsync),
+        // por eso no hace falta distinguir cuáles son "nuevos" o "editados": basta con
+        // que la lista final tenga los números correctos.
+        (function () {
+            const contenedor = document.getElementById('telefonos-container');
+            const btnAgregar = document.getElementById('btn-agregar-telefono');
+
+            function reindexar() {
+                const filas = contenedor.querySelectorAll('.telefono-row');
+                filas.forEach((fila, indice) => {
+                    const input = fila.querySelector('input');
+                    input.name = `Telefonos[${indice}].Numero`;
+                });
+            }
+
+            btnAgregar.addEventListener('click', function () {
+                const indice = contenedor.querySelectorAll('.telefono-row').length;
+                const fila = document.createElement('div');
+                fila.className = 'row mb-2 telefono-row';
+                fila.innerHTML =
+                    '<div class="col-8">' +
+                    '<input name="Telefonos[' + indice + '].Numero" class="form-control" placeholder="Número de teléfono" />' +
+                    '</div>' +
+                    '<div class="col-4">' +
+                    '<button type="button" class="btn btn-outline-danger btn-eliminar-telefono">Quitar</button>' +
+                    '</div>';
+                contenedor.appendChild(fila);
+            });
+
+            contenedor.addEventListener('click', function (e) {
+                if (e.target.classList.contains('btn-eliminar-telefono')) {
+                    const filas = contenedor.querySelectorAll('.telefono-row');
+                    if (filas.length > 1) {
+                        e.target.closest('.telefono-row').remove();
+                        reindexar();
+                    }
+                }
+            });
+        })();
+    </script>
+}

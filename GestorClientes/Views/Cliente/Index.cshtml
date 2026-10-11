@@ -3,6 +3,15 @@
 
 <h2>Listado de Clientes</h2>
 
+@if (TempData["Mensaje"] != null)
+{
+    <div class="alert alert-success">@TempData["Mensaje"]</div>
+}
+
+<p>
+    <a asp-action="Registrar" class="btn btn-primary">+ Registrar nuevo cliente</a>
+</p>
+
 <table class="table">
     <thead>
         <tr>
@@ -36,6 +45,11 @@
                     <a asp-action="Detalle"
                        asp-route-id="@cliente.Id">
                         Ver Detalle
+                    </a>
+                    |
+                    <a asp-action="Modificar"
+                       asp-route-id="@cliente.Id">
+                        Modificar
                     </a>
                 </td>
             </tr>
