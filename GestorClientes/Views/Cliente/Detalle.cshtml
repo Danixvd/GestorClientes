@@ -1,0 +1,22 @@
+﻿@using GestorClientes.Application.Dtos
+@model ClienteDto
+
+<h2>Detalle del Cliente</h2>
+
+<p><strong>Nombre:</strong> @Model.Nombre</p>
+<p><strong>Apellido 1:</strong> @Model.Apellido1</p>
+<p><strong>Apellido 2:</strong> @Model.Apellido2</p>
+<p><strong>Correo:</strong> @Model.Correo</p>
+
+<h4>Teléfonos</h4>
+
+<ul>
+    @foreach (var telefono in Model.Telefonos)
+    {
+        <li>@telefono.Numero</li>
+    }
+</ul>
+
+<a asp-action="Index">
+    Regresar
+</a>

@@ -1,0 +1,44 @@
+﻿@using GestorClientes.Application.Dtos
+@model List<ClienteDto>
+
+<h2>Listado de Clientes</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Correo</th>
+            <th>Teléfonos</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var cliente in Model)
+        {
+            <tr>
+                <td>
+                    @cliente.Nombre
+                    @cliente.Apellido1
+                    @cliente.Apellido2
+                </td>
+
+                <td>@cliente.Correo</td>
+
+                <td>
+                    @foreach (var telefono in cliente.Telefonos)
+                    {
+                        <div>@telefono.Numero</div>
+                    }
+                </td>
+
+                <td>
+                    <a asp-action="Detalle"
+                       asp-route-id="@cliente.Id">
+                        Ver Detalle
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
