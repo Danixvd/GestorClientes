@@ -39,6 +39,12 @@
                         return;
                     }
 
+                    // Si se eliminó desde el Detalle no hay tabla, se regresa al listado
+                    if ($('#mensajeCliente').length === 0) {
+                        window.location.href = '/Cliente';
+                        return;
+                    }
+
                     // Se quita la fila de la tabla y se muestra el mensaje en la página
                     $(`#fila-cliente-${this.idEliminar}`).remove();
                     this.modalEliminar.hide();
@@ -46,6 +52,12 @@
                         .removeClass('d-none alert-danger')
                         .addClass('alert-success')
                         .text(respuesta.mensaje);
+
+                    // Si era el último cliente se muestra el mensaje de lista vacía
+                    if ($('[id^=fila-cliente-]').length === 0) {
+                        $('#tablaClientes').addClass('d-none');
+                        $('#sinClientes').removeClass('d-none');
+                    }
                 })
                 .fail(() => {
                     this.mostrarError('Ocurrió un error al eliminar el cliente. Intente de nuevo.');

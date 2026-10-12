@@ -1,8 +1,51 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+@{
+    ViewData["Title"] = "Inicio";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="cliente-page">
+
+    <div class="page-header">
+        <div class="page-header-content">
+            <div>
+                <h1 class="page-title">
+                    <i class="bi bi-people-fill"></i> GestorClientes
+                </h1>
+                <p class="page-subtitle">Sistema para llevar el control de clientes y sus números de teléfono</p>
+            </div>
+            <a asp-controller="Cliente" asp-action="Index" class="btn btn-crear">
+                <i class="bi bi-person-lines-fill"></i> Ver Clientes
+            </a>
+        </div>
+    </div>
+
+    <div class="table-card">
+        <div class="table-card-header">
+            <h2 class="table-card-title">
+                <i class="bi bi-grid"></i> ¿Qué puede hacer?
+            </h2>
+        </div>
+        <div class="table-card-body">
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <a asp-controller="Cliente" asp-action="Index" class="text-decoration-none text-reset d-flex gap-3 align-items-start">
+                        <span class="btn-action btn-action-view"><i class="bi bi-list-ul"></i></span>
+                        <span>
+                            <strong>Listar y consultar</strong><br />
+                            <span class="text-muted">Ver todos los clientes con sus teléfonos y el detalle de cada uno.</span>
+                        </span>
+                    </a>
+                </div>
+                <div class="col-md-6">
+                    <a asp-controller="Cliente" asp-action="Registrar" class="text-decoration-none text-reset d-flex gap-3 align-items-start">
+                        <span class="btn-action btn-action-edit"><i class="bi bi-person-plus"></i></span>
+                        <span>
+                            <strong>Registrar y modificar</strong><br />
+                            <span class="text-muted">Agregar clientes nuevos o actualizar sus datos y teléfonos.</span>
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>

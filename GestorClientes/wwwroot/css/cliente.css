@@ -1,0 +1,306 @@
+/* Estilos de las páginas de Cliente (basado en carro.css del proyecto de clase) */
+
+/* ---------- Variables ---------- */
+:root {
+    --cliente-primary: #4f46e5;
+    --cliente-primary-hover: #4338ca;
+    --cliente-bg: #f1f5f9;
+    --cliente-card: #ffffff;
+    --cliente-border: #e2e8f0;
+    --cliente-text: #1e293b;
+    --cliente-text-muted: #64748b;
+    --cliente-radius: 12px;
+    --cliente-shadow: 0 1px 3px rgba(0, 0, 0, .06), 0 1px 2px rgba(0, 0, 0, .04);
+    --cliente-shadow-md: 0 4px 6px rgba(0, 0, 0, .05), 0 2px 4px rgba(0, 0, 0, .04);
+}
+
+/* ---------- Page wrapper ---------- */
+.cliente-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1.5rem 0;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    color: var(--cliente-text);
+}
+
+/* ---------- Page header ---------- */
+.page-header {
+    background: linear-gradient(135deg, var(--cliente-primary) 0%, #7c3aed 100%);
+    border-radius: var(--cliente-radius);
+    padding: 2rem 2.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: var(--cliente-shadow-md);
+}
+
+.page-header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.page-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #fff;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+}
+
+.page-subtitle {
+    color: rgba(255, 255, 255, .78);
+    margin: .35rem 0 0;
+    font-size: .95rem;
+}
+
+.btn-crear {
+    background: #fff;
+    color: var(--cliente-primary);
+    font-weight: 600;
+    border: none;
+    padding: .6rem 1.4rem;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: .45rem;
+    transition: all .2s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .12);
+}
+
+    .btn-crear:hover {
+        background: #f0ecff;
+        color: var(--cliente-primary-hover);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, .15);
+    }
+
+/* ---------- Table card ---------- */
+.table-card {
+    background: var(--cliente-card);
+    border: 1px solid var(--cliente-border);
+    border-radius: var(--cliente-radius);
+    box-shadow: var(--cliente-shadow);
+    overflow: hidden;
+}
+
+.table-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: .75rem;
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--cliente-border);
+}
+
+.table-card-title {
+    font-weight: 600;
+    font-size: 1.05rem;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: .45rem;
+    color: var(--cliente-text);
+}
+
+.table-card-body {
+    padding: 1.5rem;
+}
+
+/* ---------- Table ---------- */
+.table-cliente {
+    margin: 0;
+    font-size: .92rem;
+}
+
+    .table-cliente thead {
+        background: #f8fafc;
+    }
+
+        .table-cliente thead th {
+            border-bottom: 2px solid var(--cliente-border);
+            padding: .85rem 1rem;
+            font-weight: 600;
+            font-size: .8rem;
+            text-transform: uppercase;
+            letter-spacing: .04em;
+            color: var(--cliente-text-muted);
+            white-space: nowrap;
+        }
+
+.th-content {
+    display: flex;
+    align-items: center;
+    gap: .35rem;
+}
+
+.table-cliente tbody tr {
+    transition: background .12s ease;
+}
+
+    .table-cliente tbody tr:hover {
+        background: #f1f5ff;
+    }
+
+.table-cliente tbody td {
+    padding: .8rem 1rem;
+    vertical-align: middle;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+/* Teléfono como etiqueta dentro de la tabla y del detalle */
+.telefono-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: .3rem;
+    background: #eef2ff;
+    color: var(--cliente-primary);
+    border-radius: 6px;
+    padding: .15rem .55rem;
+    margin: .1rem .2rem .1rem 0;
+    font-size: .85rem;
+    white-space: nowrap;
+}
+
+/* ---------- Action buttons ---------- */
+.acciones {
+    display: flex;
+    gap: .35rem;
+}
+
+.btn-action {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid transparent;
+    transition: all .15s ease;
+    font-size: .88rem;
+}
+
+.btn-action-edit {
+    background: #eff6ff;
+    color: #2563eb;
+    border-color: #bfdbfe;
+}
+
+    .btn-action-edit:hover {
+        background: #2563eb;
+        color: #fff;
+    }
+
+.btn-action-delete {
+    background: #fef2f2;
+    color: #dc2626;
+    border-color: #fecaca;
+}
+
+    .btn-action-delete:hover {
+        background: #dc2626;
+        color: #fff;
+    }
+
+.btn-action-view {
+    background: #f0fdf4;
+    color: #16a34a;
+    border-color: #bbf7d0;
+}
+
+    .btn-action-view:hover {
+        background: #16a34a;
+        color: #fff;
+    }
+
+/* ---------- Empty state ---------- */
+.empty-state {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--cliente-text-muted);
+}
+
+    .empty-state i {
+        font-size: 3rem;
+        opacity: .4;
+        margin-bottom: .75rem;
+        display: block;
+    }
+
+    .empty-state h5 {
+        font-weight: 600;
+        margin-bottom: .3rem;
+        color: var(--cliente-text);
+    }
+
+    .empty-state p {
+        font-size: .9rem;
+    }
+
+/* ---------- Detalle ---------- */
+.detalle-label {
+    font-size: .8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    color: var(--cliente-text-muted);
+    margin-bottom: .2rem;
+}
+
+.detalle-valor {
+    font-size: 1.05rem;
+    margin-bottom: 1.25rem;
+}
+
+/* ---------- Formularios ---------- */
+.form-cliente .form-label {
+    font-weight: 600;
+    font-size: .9rem;
+}
+
+.form-cliente .form-control:focus {
+    border-color: var(--cliente-primary);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, .12);
+}
+
+.seccion-titulo {
+    font-weight: 600;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: .45rem;
+    margin: 1.5rem 0 .75rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--cliente-border);
+}
+
+.btn-cliente {
+    background: var(--cliente-primary);
+    border-color: var(--cliente-primary);
+    color: #fff;
+}
+
+    .btn-cliente:hover {
+        background: var(--cliente-primary-hover);
+        border-color: var(--cliente-primary-hover);
+        color: #fff;
+    }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 768px) {
+    .page-header {
+        padding: 1.5rem;
+    }
+
+    .page-title {
+        font-size: 1.35rem;
+    }
+
+    .page-header-content {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
