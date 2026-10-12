@@ -1,70 +1,110 @@
-﻿@using GestorClientes.Application.Dtos
+@using GestorClientes.Application.Dtos
 @model List<ClienteDto>
 
-<h2>Listado de Clientes</h2>
+@{
+    ViewData["Title"] = "Clientes";
+}
 
-@* Un solo contenedor de mensajes: lo usa TempData (registrar/modificar) y cliente.js (eliminar) *@
-<div id="mensajeCliente"
-     class="alert @(TempData["Mensaje"] != null ? "alert-success" : "d-none")"
-     role="alert">@TempData["Mensaje"]</div>
+<div class="cliente-page">
 
-<p>
-    <a asp-action="Registrar" class="btn btn-primary">+ Registrar nuevo cliente</a>
-</p>
+    <div class="page-header">
+        <div class="page-header-content">
+            <div>
+                <h1 class="page-title">
+                    <i class="bi bi-person-lines-fill"></i> Clientes
+                </h1>
+                <p class="page-subtitle">Gestión de clientes y sus números de teléfono</p>
+            </div>
+            <a asp-action="Registrar" class="btn btn-crear">
+                <i class="bi bi-plus-lg"></i> Nuevo Cliente
+            </a>
+        </div>
+    </div>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Nombre</th>
-            <th>Correo</th>
-            <th>Teléfonos</th>
-            <th></th>
-        </tr>
-    </thead>
+    @* Un solo contenedor de mensajes: lo usa TempData (registrar/modificar/no encontrado) y cliente.js (eliminar) *@
+    @{
+        var claseMensaje = TempData["Error"] != null ? "alert-danger"
+            : TempData["Mensaje"] != null ? "alert-success"
+            : "d-none";
+    }
+    <div id="mensajeCliente" class="alert @claseMensaje" role="alert">@(TempData["Error"] ?? TempData["Mensaje"])</div>
 
-    <tbody>
-        @foreach (var cliente in Model)
-        {
-            <tr id="fila-cliente-@cliente.Id">
-                <td>
-                    @cliente.Nombre
-                    @cliente.Apellido1
-                    @cliente.Apellido2
-                </td>
+    <div class="table-card">
+        <div class="table-card-header">
+            <h2 class="table-card-title">
+                <i class="bi bi-list-ul"></i> Lista de Clientes
+            </h2>
+        </div>
 
-                <td>@cliente.Correo</td>
+        @* Se muestra cuando no hay clientes (cliente.js también lo muestra al borrar el último) *@
+        <div id="sinClientes" class="empty-state @(Model.Count > 0 ? "d-none" : "")">
+            <i class="bi bi-people"></i>
+            <h5>No hay clientes registrados</h5>
+            <p>Use el botón "Nuevo Cliente" para registrar el primero.</p>
+        </div>
 
-                <td>
-                    @foreach (var telefono in cliente.Telefonos)
+        <div id="tablaClientes" class="table-responsive @(Model.Count == 0 ? "d-none" : "")">
+            <table class="table table-cliente">
+                <thead>
+                    <tr>
+                        <th><div class="th-content"><i class="bi bi-person"></i> Nombre</div></th>
+                        <th><div class="th-content"><i class="bi bi-envelope"></i> Correo</div></th>
+                        <th><div class="th-content"><i class="bi bi-telephone"></i> Teléfonos</div></th>
+                        <th style="width:14%"><div class="th-content"><i class="bi bi-gear"></i> Acciones</div></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var cliente in Model)
                     {
-                        <div>@telefono.Numero</div>
+                        <tr id="fila-cliente-@cliente.Id">
+                            <td class="fw-semibold">
+                                @cliente.Nombre @cliente.Apellido1 @cliente.Apellido2
+                            </td>
+
+                            <td>@cliente.Correo</td>
+
+                            <td>
+                                @foreach (var telefono in cliente.Telefonos)
+                                {
+                                    <span class="telefono-badge">
+                                        <i class="bi bi-telephone"></i> @telefono.Numero
+                                    </span>
+                                }
+                            </td>
+
+                            <td>
+                                <div class="acciones">
+                                    <a asp-action="Detalle"
+                                       asp-route-id="@cliente.Id"
+                                       class="btn-action btn-action-view"
+                                       title="Ver detalle">
+                                        <i class="bi bi-eye"></i>
+                                    </a>
+                                    <a asp-action="Modificar"
+                                       asp-route-id="@cliente.Id"
+                                       class="btn-action btn-action-edit"
+                                       title="Modificar">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                    <button type="button"
+                                            class="btn-action btn-action-delete btn-eliminar-cliente"
+                                            title="Eliminar"
+                                            data-id="@cliente.Id"
+                                            data-nombre="@cliente.Nombre @cliente.Apellido1 @cliente.Apellido2">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
                     }
-                </td>
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-                <td>
-                    <a asp-action="Detalle"
-                       asp-route-id="@cliente.Id">
-                        Ver Detalle
-                    </a>
-                    |
-                    <a asp-action="Modificar"
-                       asp-route-id="@cliente.Id">
-                        Modificar
-                    </a>
-                    |
-                    <button type="button"
-                            class="btn btn-link text-danger p-0 align-baseline btn-eliminar-cliente"
-                            data-id="@cliente.Id"
-                            data-nombre="@cliente.Nombre @cliente.Apellido1 @cliente.Apellido2">
-                        Eliminar
-                    </button>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-
-@await Html.PartialAsync("_Eliminar")
+    @await Html.PartialAsync("_Eliminar")
+</div>
 
 @section Scripts {
     <script src="~/js/cliente.js" asp-append-version="true"></script>

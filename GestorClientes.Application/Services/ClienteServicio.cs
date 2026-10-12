@@ -21,6 +21,11 @@ namespace GestorClientes.Application.Services
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// Obtiene todos los clientes con sus teléfonos y los convierte a DTO.
+        /// </summary>
+        /// <param name="cancellationToken">Token para cancelar la consulta.</param>
+        /// <returns>Lista de clientes (vacía si no hay registros).</returns>
         public async Task<List<ClienteDto>> ObtenerClientesAsync(
             CancellationToken cancellationToken = default)
         {
@@ -30,6 +35,13 @@ namespace GestorClientes.Application.Services
             return _mapper.Map<List<ClienteDto>>(clientes);
         }
 
+        /// <summary>
+        /// Obtiene un cliente por su id y lo convierte a DTO.
+        /// El repositorio devuelve un cliente vacío (Id = 0) si no existe.
+        /// </summary>
+        /// <param name="id">Identificador del cliente.</param>
+        /// <param name="cancellationToken">Token para cancelar la consulta.</param>
+        /// <returns>El cliente, o null si no existe.</returns>
         public async Task<ClienteDto?> ObtenerClientePorIdAsync(
             int id,
             CancellationToken cancellationToken = default)

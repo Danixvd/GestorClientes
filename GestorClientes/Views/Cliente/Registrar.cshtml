@@ -5,64 +5,87 @@
     ViewData["Title"] = "Registrar Cliente";
 }
 
-<h2>Registrar Cliente</h2>
+<div class="cliente-page">
 
-<div asp-validation-summary="All" class="text-danger"></div>
-
-<form asp-action="Registrar" method="post">
-    <div class="mb-3">
-        <label asp-for="Nombre" class="form-label"></label>
-        <input asp-for="Nombre" class="form-control" />
-        <span asp-validation-for="Nombre" class="text-danger"></span>
-    </div>
-
-    <div class="mb-3">
-        <label asp-for="Apellido1" class="form-label"></label>
-        <input asp-for="Apellido1" class="form-control" />
-        <span asp-validation-for="Apellido1" class="text-danger"></span>
-    </div>
-
-    <div class="mb-3">
-        <label asp-for="Apellido2" class="form-label"></label>
-        <input asp-for="Apellido2" class="form-control" />
-        <span asp-validation-for="Apellido2" class="text-danger"></span>
-    </div>
-
-    <div class="mb-3">
-        <label asp-for="Correo" class="form-label"></label>
-        <input asp-for="Correo" class="form-control" />
-        <span asp-validation-for="Correo" class="text-danger"></span>
-    </div>
-
-    <h5>Teléfonos</h5>
-    <div id="telefonos-container">
-        @for (int i = 0; i < Model.Telefonos.Count; i++)
-        {
-            <div class="row mb-2 telefono-row">
-                <div class="col-8">
-                    <input name="Telefonos[@i].Numero"
-                           value="@Model.Telefonos[i].Numero"
-                           class="form-control"
-                           placeholder="Número de teléfono" />
-                </div>
-                <div class="col-4">
-                    <button type="button" class="btn btn-outline-danger btn-eliminar-telefono">
-                        Quitar
-                    </button>
-                </div>
+    <div class="page-header">
+        <div class="page-header-content">
+            <div>
+                <h1 class="page-title">
+                    <i class="bi bi-person-plus"></i> Registrar Cliente
+                </h1>
+                <p class="page-subtitle">Ingrese los datos del cliente y al menos un número de teléfono</p>
             </div>
-        }
+            <a asp-action="Index" class="btn btn-crear">
+                <i class="bi bi-arrow-left"></i> Regresar
+            </a>
+        </div>
     </div>
 
-    <button type="button" id="btn-agregar-telefono" class="btn btn-outline-secondary mb-3">
-        + Agregar teléfono
-    </button>
+    <div class="table-card">
+        <div class="table-card-body">
+            <div asp-validation-summary="All" class="text-danger"></div>
 
-    <div>
-        <button type="submit" class="btn btn-primary">Guardar</button>
-        <a asp-action="Index" class="btn btn-link">Cancelar</a>
+            <form asp-action="Registrar" method="post" class="form-cliente">
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label asp-for="Nombre" class="form-label">Nombre</label>
+                        <input asp-for="Nombre" class="form-control" />
+                        <span asp-validation-for="Nombre" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label asp-for="Apellido1" class="form-label">Primer apellido</label>
+                        <input asp-for="Apellido1" class="form-control" />
+                        <span asp-validation-for="Apellido1" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label asp-for="Apellido2" class="form-label">Segundo apellido</label>
+                        <input asp-for="Apellido2" class="form-control" />
+                        <span asp-validation-for="Apellido2" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Correo" class="form-label">Correo</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                        <input asp-for="Correo" class="form-control" placeholder="correo@ejemplo.com" />
+                    </div>
+                    <span asp-validation-for="Correo" class="text-danger"></span>
+                </div>
+
+                <h5 class="seccion-titulo"><i class="bi bi-telephone"></i> Teléfonos</h5>
+                <div id="telefonos-container">
+                    @for (int i = 0; i < Model.Telefonos.Count; i++)
+                    {
+                        <div class="input-group mb-2 telefono-row">
+                            <span class="input-group-text"><i class="bi bi-telephone"></i></span>
+                            <input name="Telefonos[@i].Numero"
+                                   value="@Model.Telefonos[i].Numero"
+                                   class="form-control"
+                                   placeholder="Número de teléfono" />
+                            <button type="button" class="btn btn-outline-danger btn-eliminar-telefono" title="Quitar teléfono">
+                                <i class="bi bi-x-lg"></i> Quitar
+                            </button>
+                        </div>
+                    }
+                </div>
+
+                <button type="button" id="btn-agregar-telefono" class="btn btn-outline-secondary btn-sm mb-4">
+                    <i class="bi bi-plus-lg"></i> Agregar teléfono
+                </button>
+
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-cliente">
+                        <i class="bi bi-check-lg"></i> Guardar
+                    </button>
+                    <a asp-action="Index" class="btn btn-outline-secondary">Cancelar</a>
+                </div>
+            </form>
+        </div>
     </div>
-</form>
+</div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
@@ -84,22 +107,22 @@
             btnAgregar.addEventListener('click', function () {
                 const indice = contenedor.querySelectorAll('.telefono-row').length;
                 const fila = document.createElement('div');
-                fila.className = 'row mb-2 telefono-row';
+                fila.className = 'input-group mb-2 telefono-row';
                 fila.innerHTML =
-                    '<div class="col-8">' +
+                    '<span class="input-group-text"><i class="bi bi-telephone"></i></span>' +
                     '<input name="Telefonos[' + indice + '].Numero" class="form-control" placeholder="Número de teléfono" />' +
-                    '</div>' +
-                    '<div class="col-4">' +
-                    '<button type="button" class="btn btn-outline-danger btn-eliminar-telefono">Quitar</button>' +
-                    '</div>';
+                    '<button type="button" class="btn btn-outline-danger btn-eliminar-telefono" title="Quitar teléfono">' +
+                    '<i class="bi bi-x-lg"></i> Quitar</button>';
                 contenedor.appendChild(fila);
             });
 
             contenedor.addEventListener('click', function (e) {
-                if (e.target.classList.contains('btn-eliminar-telefono')) {
+                // closest() para que también funcione al hacer clic sobre el ícono del botón
+                const boton = e.target.closest('.btn-eliminar-telefono');
+                if (boton) {
                     const filas = contenedor.querySelectorAll('.telefono-row');
                     if (filas.length > 1) {
-                        e.target.closest('.telefono-row').remove();
+                        boton.closest('.telefono-row').remove();
                         reindexar();
                     }
                 }
