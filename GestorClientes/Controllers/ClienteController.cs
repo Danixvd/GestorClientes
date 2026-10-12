@@ -106,5 +106,16 @@ namespace GestorClientes.Controllers
             TempData["Mensaje"] = "Cliente modificado correctamente.";
             return RedirectToAction(nameof(Index));
         }
+
+        // ---- Eliminar cliente (Persona 4) ----
+
+        // Se llama por AJAX desde cliente.js después de confirmar en el modal,
+        // y retorna la Respuesta en formato json para mostrar el resultado
+        [HttpPost]
+        public async Task<IActionResult> EliminarCliente(int id)
+        {
+            var respuesta = await _clienteServicio.EliminarClienteAsync(id);
+            return Json(respuesta);
+        }
     }
 }

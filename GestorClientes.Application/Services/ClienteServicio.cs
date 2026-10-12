@@ -134,5 +134,31 @@ namespace GestorClientes.Application.Services
             respuesta.Dato = _mapper.Map<ClienteDto>(clienteEntity);
             return respuesta;
         }
+
+        /// <summary>
+        /// Elimina un cliente junto con sus teléfonos (ON DELETE CASCADE en la base de datos).
+        /// Si el repositorio no logra eliminarlo, retorna una Respuesta con EsCorrecto = false.
+        /// </summary>
+        /// <param name="id">Identificador del cliente a eliminar.</param>
+        /// <param name="cancellationToken">Token para cancelar la operación.</param>
+        /// <returns>Respuesta estandarizada indicando si se eliminó el cliente.</returns>
+        public async Task<Respuesta<ClienteDto>> EliminarClienteAsync(
+            int id,
+            CancellationToken cancellationToken = default)
+        {
+            var respuesta = new Respuesta<ClienteDto>();
+
+            // El repositorio retorna false si el cliente no existe o si no se borró ningún registro
+            if (!await _clienteRepository.DeleteClienteAsync(id, cancellationToken))
+            {
+                respuesta.EsCorrecto = false;
+                respuesta.Mensaje = "No se pudo eliminar el cliente (puede que ya no exista).";
+                respuesta.Codigo = 500;
+                return respuesta;
+            }
+
+            respuesta.Mensaje = "Cliente eliminado correctamente.";
+            return respuesta;
+        }
     }
 }

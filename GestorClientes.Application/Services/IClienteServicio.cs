@@ -35,5 +35,15 @@ namespace GestorClientes.Application.Services
         Task<Respuesta<ClienteDto>> ActualizarClienteAsync(
             ClienteDto cliente,
             CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Elimina un cliente; sus teléfonos se borran por la regla ON DELETE CASCADE.
+        /// </summary>
+        /// <param name="id">Identificador del cliente a eliminar.</param>
+        /// <param name="cancellationToken">Token para cancelar la operación.</param>
+        /// <returns>Respuesta estandarizada indicando si se eliminó el cliente.</returns>
+        Task<Respuesta<ClienteDto>> EliminarClienteAsync(
+            int id,
+            CancellationToken cancellationToken = default);
     }
 }
