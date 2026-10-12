@@ -26,8 +26,12 @@ namespace GestorClientes.Controllers
             var cliente =
                 await _clienteServicio.ObtenerClientePorIdAsync(id);
 
+            // Si el cliente no existe se regresa al listado con un mensaje, en lugar de una página en blanco
             if (cliente == null)
-                return NotFound();
+            {
+                TempData["Error"] = "El cliente no existe o ya fue eliminado.";
+                return RedirectToAction(nameof(Index));
+            }
 
             return View(cliente);
         }
@@ -76,7 +80,10 @@ namespace GestorClientes.Controllers
             var cliente = await _clienteServicio.ObtenerClientePorIdAsync(id);
 
             if (cliente == null)
-                return NotFound();
+            {
+                TempData["Error"] = "El cliente no existe o ya fue eliminado.";
+                return RedirectToAction(nameof(Index));
+            }
 
             if (cliente.Telefonos.Count == 0)
             {

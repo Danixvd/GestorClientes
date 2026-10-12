@@ -21,10 +21,13 @@
         </div>
     </div>
 
-    @* Un solo contenedor de mensajes: lo usa TempData (registrar/modificar) y cliente.js (eliminar) *@
-    <div id="mensajeCliente"
-         class="alert @(TempData["Mensaje"] != null ? "alert-success" : "d-none")"
-         role="alert">@TempData["Mensaje"]</div>
+    @* Un solo contenedor de mensajes: lo usa TempData (registrar/modificar/no encontrado) y cliente.js (eliminar) *@
+    @{
+        var claseMensaje = TempData["Error"] != null ? "alert-danger"
+            : TempData["Mensaje"] != null ? "alert-success"
+            : "d-none";
+    }
+    <div id="mensajeCliente" class="alert @claseMensaje" role="alert">@(TempData["Error"] ?? TempData["Mensaje"])</div>
 
     <div class="table-card">
         <div class="table-card-header">

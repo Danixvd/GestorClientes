@@ -7,9 +7,20 @@ namespace GestorClientes.Application.Services
 {
     public interface IClienteServicio
     {
+        /// <summary>
+        /// Obtiene todos los clientes junto con sus teléfonos.
+        /// </summary>
+        /// <param name="cancellationToken">Token para cancelar la consulta.</param>
+        /// <returns>Lista de clientes (vacía si no hay registros).</returns>
         Task<List<ClienteDto>> ObtenerClientesAsync(
            CancellationToken cancellationToken = default);
 
+        /// <summary>
+        /// Obtiene un cliente por su id, con sus teléfonos.
+        /// </summary>
+        /// <param name="id">Identificador del cliente.</param>
+        /// <param name="cancellationToken">Token para cancelar la consulta.</param>
+        /// <returns>El cliente, o null si no existe.</returns>
         Task<ClienteDto?> ObtenerClientePorIdAsync(
             int id,
             CancellationToken cancellationToken = default);
